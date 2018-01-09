@@ -19,19 +19,19 @@ public class RobotFace extends GraphicsProgram {
 	private static final int MOUTH_HEIGHT = 20;
 	
 	public void run() {
-		drawFace();
+		drawFace(getWidth() / 2, getHeight() / 2);
 	}
 	
-	public void drawFace() {
-		double x = getWidth() / 2 - HEAD_WIDTH / 2;
-		double y = getHeight() / 2 - HEAD_HEIGHT / 2;
+	public void drawFace(double x, double y) {
 		drawHead(x, y);
 		drawEye(x + (0.25 * HEAD_WIDTH) - EYE_RADIUS, y + (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
 		drawEye(x + (0.75 * HEAD_WIDTH) - EYE_RADIUS, y + (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
-		drawMouth(getWidth() / 2 - MOUTH_WIDTH / 2, getHeight() / 2 + (0.25 * HEAD_HEIGHT) - (MOUTH_HEIGHT / 2));
+		drawMouth(x - MOUTH_WIDTH / 2, y + (0.25 * HEAD_HEIGHT) - (MOUTH_HEIGHT / 2));
 	}
 	
 	public void drawHead(double x, double y) {
+		x -= HEAD_WIDTH / 2;
+		y -= HEAD_HEIGHT / 2;
 		GRect head = new GRect(x, y, HEAD_WIDTH, HEAD_HEIGHT);
 		head.setFilled(true);
 		head.setFillColor(Color.GRAY);
