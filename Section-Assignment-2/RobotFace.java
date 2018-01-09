@@ -3,7 +3,7 @@
  * Name:
  * Section Leader:
  * --------------------
- * This file is the starter file for the RobotFace problem
+ * This program draws a robot face.
  */
 
 import acm.program.*;
@@ -11,6 +11,7 @@ import acm.graphics.*;
 import java.awt.*;
 
 public class RobotFace extends GraphicsProgram {
+	/* Parameters for the drawing */
 	private static final int HEAD_WIDTH = 100;
 	private static final int HEAD_HEIGHT = 150;
 	private static final int EYE_RADIUS = 10;
