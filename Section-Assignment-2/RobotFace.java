@@ -41,7 +41,6 @@ public class RobotFace extends GraphicsProgram {
 	public void drawEye(double x, double y) {
 		GOval eye = new GOval(x, y, EYE_RADIUS * 2, EYE_RADIUS * 2);
 		eye.setFilled(true);
-		eye.setFillColor(Color.YELLOW);
 		eye.setColor(Color.YELLOW);
 		add(eye);
 	}
@@ -49,7 +48,6 @@ public class RobotFace extends GraphicsProgram {
 	public void drawMouth(double x, double y) {
 		GRect mouth = new GRect(x, y, MOUTH_WIDTH, MOUTH_HEIGHT);
 		mouth.setFilled(true);
-		mouth.setFillColor(Color.WHITE);
 		mouth.setColor(Color.WHITE);
 		add(mouth);
 	}
