@@ -24,8 +24,8 @@ public class RobotFace extends GraphicsProgram {
 	
 	public void drawFace(double x, double y) {
 		drawHead(x, y);
-		drawEye(x + (0.25 * HEAD_WIDTH) - EYE_RADIUS, y + (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
-		drawEye(x + (0.75 * HEAD_WIDTH) - EYE_RADIUS, y + (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
+		drawEye(x - (0.25 * HEAD_WIDTH) - EYE_RADIUS, y - (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
+		drawEye(x + (0.25 * HEAD_WIDTH) - EYE_RADIUS, y - (0.25 * HEAD_HEIGHT) - EYE_RADIUS);
 		drawMouth(x - MOUTH_WIDTH / 2, y + (0.25 * HEAD_HEIGHT) - (MOUTH_HEIGHT / 2));
 	}
 	
