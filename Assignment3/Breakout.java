@@ -67,6 +67,7 @@ public class Breakout extends GraphicsProgram {
 	
 	public void setUpGame() {
 		drawBricks();
+		drawPaddle();
 	}
 	
 	public void playGame() {
@@ -105,6 +106,23 @@ public class Breakout extends GraphicsProgram {
 				brick.setFilled(true);
 				add(brick);
 			}
+		}
+	}
+	
+	private GRect paddle;
+	
+	public void drawPaddle() {
+		int x = getWidth() / 2 - PADDLE_WIDTH / 2;
+		int y = getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT / 2;
+		paddle = new GRect(x, y, PADDLE_WIDTH, PADDLE_HEIGHT);
+		paddle.setFilled(true);
+		add(paddle);
+		addMouseListeners();
+	}
+	
+	public void mouseMoved(MouseEvent e) {
+		if(e.getX() < getWidth() - PADDLE_WIDTH / 2 && e.getX() > PADDLE_WIDTH / 2) {
+			paddle.setLocation(e.getX() - PADDLE_WIDTH / 2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT / 2);
 		}
 	}
 
