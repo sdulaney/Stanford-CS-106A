@@ -17,48 +17,50 @@ import java.awt.event.*;
 
 public class Breakout extends GraphicsProgram {
 
-/** Width and height of application window in pixels */
+	/** Width and height of application window in pixels */
 	public static final int APPLICATION_WIDTH = 400;
 	public static final int APPLICATION_HEIGHT = 600;
 
-/** Dimensions of game board (usually the same) */
+	/** Dimensions of game board (usually the same) */
 	private static final int WIDTH = APPLICATION_WIDTH;
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
-/** Dimensions of the paddle */
+	/** Dimensions of the paddle */
 	private static final int PADDLE_WIDTH = 60;
 	private static final int PADDLE_HEIGHT = 10;
 
-/** Offset of the paddle up from the bottom */
+	/** Offset of the paddle up from the bottom */
 	private static final int PADDLE_Y_OFFSET = 30;
 
-/** Number of bricks per row */
+	/** Number of bricks per row */
 	private static final int NBRICKS_PER_ROW = 10;
 
-/** Number of rows of bricks */
+	/** Number of rows of bricks */
 	private static final int NBRICK_ROWS = 10;
 
-/** Separation between bricks */
+	/** Separation between bricks */
 	private static final int BRICK_SEP = 4;
 
-/** Width of a brick */
-	private static final int BRICK_WIDTH =
-	  (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
+	/** Width of a brick */
+	private static final int BRICK_WIDTH = (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
 
-/** Height of a brick */
+	/** Height of a brick */
 	private static final int BRICK_HEIGHT = 8;
 
-/** Radius of the ball in pixels */
+	/** Radius of the ball in pixels */
 	private static final int BALL_RADIUS = 10;
 
-/** Offset of the top brick row from the top */
+	/** Offset of the top brick row from the top */
 	private static final int BRICK_Y_OFFSET = 70;
 
-/** Number of turns */
+	/** Number of turns */
 	private static final int NTURNS = 3;
+	
+	/** Animation delay or pause time between ball moves */
+	private static final int DELAY = 10;
 
-/* Method: run() */
-/** Runs the Breakout program. */
+	/* Method: run() */
+	/** Runs the Breakout program. */
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setUpGame();
@@ -68,10 +70,14 @@ public class Breakout extends GraphicsProgram {
 	public void setUpGame() {
 		drawBricks();
 		drawPaddle();
+		drawBall();
 	}
 	
 	public void playGame() {
-		
+		getBallVelocity();
+		while(true) {
+			moveBall();
+		}
 	}
 	
 	public void drawBricks() {
@@ -124,6 +130,39 @@ public class Breakout extends GraphicsProgram {
 		if(e.getX() < getWidth() - PADDLE_WIDTH / 2 && e.getX() > PADDLE_WIDTH / 2) {
 			paddle.setLocation(e.getX() - PADDLE_WIDTH / 2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT / 2);
 		}
+	}
+	
+	private double vx, vy;
+	private RandomGenerator rgen = RandomGenerator.getInstance();
+	private GOval ball;
+	
+	public void drawBall() {
+		int x = getWidth() / 2;
+		int y = getHeight() / 2;
+		ball = new GOval(x, y, 2 * BALL_RADIUS, 2 * BALL_RADIUS);
+		ball.setFilled(true);
+		add(ball);
+	}
+	
+	public void getBallVelocity() {
+		vx = rgen.nextDouble(1.0, 3.0);
+		if(rgen.nextBoolean(0.5)) {
+			vx = -vx;
+		}
+		vy = 3.0;
+	}
+	
+	public void moveBall() {
+		ball.move(vx,  vy);
+		// Check for side walls
+		if((ball.getX() - vx <= 0 && vx < 0) || (ball.getX() + vx >= (getWidth() - 2 * BALL_RADIUS) && vx > 0)) {
+			vx = -vx;
+		}
+		// Check for top wall
+		if(ball.getY() - vy <= 0 && vy < 0) {
+			vy = -vy;
+		}
+		pause(DELAY);
 	}
 
 }
