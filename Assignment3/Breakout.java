@@ -58,6 +58,9 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Animation delay or pause time between ball moves */
 	private static final int DELAY = 10;
+	
+	/** Number of bricks remaining */
+	private int brickCounter = 100;
 
 	/* Method: run() */
 	/** Runs the Breakout program. */
