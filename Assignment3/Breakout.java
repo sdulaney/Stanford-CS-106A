@@ -58,9 +58,6 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Animation delay or pause time between ball moves */
 	private static final int DELAY = 10;
-	
-	/** Number of bricks remaining */
-	private int brickCounter = 100;
 
 	/* Method: run() */
 	/** Runs the Breakout program. */
@@ -136,9 +133,7 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
-	
-	private GRect paddle;
-	
+		
 	public void drawPaddle() {
 		int x = getWidth() / 2 - PADDLE_WIDTH / 2;
 		int y = getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT / 2;
@@ -153,10 +148,6 @@ public class Breakout extends GraphicsProgram {
 			paddle.setLocation(e.getX() - PADDLE_WIDTH / 2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT / 2);
 		}
 	}
-	
-	private double vx, vy;
-	private RandomGenerator rgen = RandomGenerator.getInstance();
-	private GOval ball;
 	
 	public void drawBall() {
 		int x = getWidth() / 2;
@@ -227,4 +218,10 @@ public class Breakout extends GraphicsProgram {
 		add(label);
 	}
 
+	/* Private instance variables */ 
+	private GOval ball;
+	private GRect paddle;
+	private int brickCounter = 100;
+	private double vx, vy;
+	private RandomGenerator rgen = RandomGenerator.getInstance();
 }
