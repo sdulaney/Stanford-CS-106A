@@ -66,8 +66,21 @@ public class Breakout extends GraphicsProgram {
 	/** Runs the Breakout program. */
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
-		setUpGame();
-		playGame();
+		for(int i = 0; i < NTURNS; i++) {
+			setUpGame();
+			playGame();
+			if(brickCounter == 0) {
+				ball.setVisible(false);
+				printWinner();
+				break;
+			}
+			else if (brickCounter > 0) {
+				removeAll();
+			}
+		}
+		if(brickCounter > 0) {
+			printGameOver();
+		}
 	}
 	
 	public void setUpGame() {
@@ -198,6 +211,20 @@ public class Breakout extends GraphicsProgram {
 			return getElementAt(ball.getX() + 2 * BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS);
 		}
 		return null;
+	}
+	
+	private void printGameOver() {
+		GLabel label = new GLabel("Game Over", getWidth() / 2, getHeight() / 2);
+		label.move(-label.getWidth() / 2, -label.getHeight() / 2);
+		label.setColor(Color.RED);
+		add(label);
+	}
+	
+	private void printWinner() {
+		GLabel label = new GLabel("Winner", getWidth() / 2, getHeight() / 2);
+		label.move(-label.getWidth() / 2, -label.getHeight() / 2);
+		label.setColor(Color.RED);
+		add(label);
 	}
 
 }
