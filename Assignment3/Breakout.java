@@ -83,6 +83,9 @@ public class Breakout extends GraphicsProgram {
 			if(ball.getY() >= getHeight()) {
 				break;
 			}
+			if(brickCounter == 0) {
+				break;
+			}
 		}
 	}
 	
@@ -175,6 +178,7 @@ public class Breakout extends GraphicsProgram {
 		}
 		else if(collider != null) {
 			remove(collider);
+			brickCounter--;
 			vy = -vy;
 		}
 		pause(DELAY);
