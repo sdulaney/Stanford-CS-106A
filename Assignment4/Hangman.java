@@ -18,7 +18,9 @@ public class Hangman extends ConsoleProgram {
 	}
 	
 	private void setUpGame() {
+		canvas.reset();
 		hiddenWord = getMaskedWord();
+		canvas.displayWord(hiddenWord);
 		println("Welcome to Hangman!");
 		println("The word now looks like this: " + hiddenWord);
 		println("You have " + guessCounter + " guesses left.");
@@ -76,6 +78,7 @@ public class Hangman extends ConsoleProgram {
 			println("There are no " + ch + "'s in the word");
 			guessCounter--;
 			incorrectLetters = incorrectLetters + ch;
+			canvas.noteIncorrectGuess(incorrectLetters);
 		}
 		else {
 			println("The guess is correct.");
@@ -89,7 +92,13 @@ public class Hangman extends ConsoleProgram {
 					}
 				}
 			}
+			canvas.displayWord(hiddenWord);
 		}
+	}
+	
+	public void init() {
+		canvas = new HangmanCanvas();
+		add(canvas);
 	}
 	
 	private HangmanLexicon hangmanWords;
@@ -99,4 +108,5 @@ public class Hangman extends ConsoleProgram {
 	private String word = getWord();
 	private char ch;
 	private String incorrectLetters = "";
+	private HangmanCanvas canvas;
 }
