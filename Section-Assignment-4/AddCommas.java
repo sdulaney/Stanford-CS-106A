@@ -1,7 +1,7 @@
 /*
  * File: AddCommas.java
  * -------------------
- * This program display large numbers
+ * This program displays large numbers
  * by using commas to separate digits into 
  * groups of three.
  */
