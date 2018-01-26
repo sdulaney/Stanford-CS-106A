@@ -25,7 +25,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		playGame();
 	}
 
-	/* Run game sequence */
+	/* Runs game sequence */
 	private void playGame() {
 		/* You fill this in */
 		scorecard = new int[N_CATEGORIES][nPlayers];
@@ -36,11 +36,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				selectCategory(player);
 			}
 		}
-		totalUpResults();
+		displayResults();
 		calculateWinner();
 	}
 	
-	/* Initialize first roll */
+	/* Initializes first roll */
 	private void startFirstDiceRoll(int player) {
 		display.printMessage(playerNames[player - 1] + "'s turn! Click \"Roll Dice\" button to roll the dice.");
 		display.waitForPlayerToClickRoll(player);
@@ -50,7 +50,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.displayDice(diceRoll);
 	}
 	
-	/* Initialize 2nd and 3rd roll */
+	/* Initializes 2nd and 3rd roll */
 	private void secondAndThirdRoll() {
 		for (int i = 0; i < 2; i++) {
 			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
@@ -64,17 +64,35 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}		
 	}
 	
-	/* Read category selection */
+	/* Reads category selection */
 	private void selectCategory(int player) {
 		
 	}
 	
-	private void totalUpResults() {
+	/* Calculates turn score based on category selection */
+	private void calculateCategoryScore(int player) {
 		
 	}
 	
+	/* Calculates a player's total scores */
+	private void calculateScores(int player) {
+		
+	}
+	
+	/* Updates score totals for all players on the scorecard */
+	private void displayResults() {
+		
+	}
+	
+	/* Determines the winner of the game */
 	private void calculateWinner() {
 		
+	}
+	
+	/* Returns true if the values of the dice stored in the array are valid for the category and false otherwise */
+	private boolean checkCategory(int[] dice, int category) {
+		
+		return false;
 	}
 		
 /* Private instance variables */
