@@ -101,7 +101,32 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	/* Awards player points for given category */
 	private void setCategoryScore(int player, int category) {
-		
+		int score = 0;
+		if (category >= ONES && category <= SIXES) {
+			for (int i = 0; i < N_DICE; i++) {
+				if(diceRoll[i] == category) {
+					score += diceRoll[i];
+				}
+			}
+		}
+		else if (category == THREE_OF_A_KIND || category == FOUR_OF_A_KIND || category == CHANCE) {
+			for (int i = 0; i < N_DICE; i++) {
+				score += diceRoll[i];
+			}
+		}
+		else if (category == FULL_HOUSE) {
+			score = 25;
+		}
+		else if (category == SMALL_STRAIGHT) {
+			score = 30;
+		}
+		else if (category == SMALL_STRAIGHT) {
+			score = 40;
+		}
+		else if (category == YAHTZEE) {
+			score = 50;
+		}
+		scorecard[player][category] = score;
 	}
 	
 	/* Calculates a player's total scores */
