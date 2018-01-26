@@ -69,7 +69,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.printMessage("Select a category for this roll.");
 		while (true) {
 			int category = display.waitForPlayerToSelectCategory();
-			if(selectedCategories[player][category] == 0 && YahtzeeMagicStub.checkCategory(diceRoll, category)) {
+			if (selectedCategories[player][category] == 0) {
 				calculateCategoryScore(player, category);
 				break;
 			}
@@ -77,8 +77,30 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
-	/* Calculates turn score based on category selection */
+	/* Calculates turn score based on whether dice roll is valid for given category */
 	private void calculateCategoryScore(int player, int category) {
+		selectedCategories[player][category] = 1;
+		int score;
+		int totalScore;
+		if (YahtzeeMagicStub.checkCategory(diceRoll, category)) {
+			setCategoryScore(player, category);
+			score = scorecard[player][category];
+			display.updateScorecard(category,  player,  score);
+			calculateScores(player);
+			totalScore = scorecard[player][TOTAL];
+			display.updateScorecard(TOTAL,  player, totalScore);
+		}
+		else {
+			scorecard[player][category] = 0;
+			display.updateScorecard(category,  player, 0);
+			calculateScores(player);
+			totalScore = scorecard[player][TOTAL];
+			display.updateScorecard(TOTAL, player, totalScore);
+		}
+	}
+	
+	/* Awards player points for given category */
+	private void setCategoryScore(int player, int category) {
 		
 	}
 	
