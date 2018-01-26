@@ -47,11 +47,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.printMessage(playerNames[player - 1] + "'s turn! Click \"Roll Dice\" button to roll the dice.");
 		display.waitForPlayerToClickRoll(player);
 		for (int dice = 0; dice < N_DICE; dice++) {
-			// diceRoll[dice] = rgen.nextInt(1, 6);
+			diceRoll[dice] = rgen.nextInt(1, 6);
 			// Cheat mode
-			IODialog dialog = getDialog();
-			int num = dialog.readInt("Enter number for die");
-			diceRoll[dice] = num;
+			// IODialog dialog = getDialog();
+			// int num = dialog.readInt("Enter number for die");
+			// diceRoll[dice] = num;
 		}
 		display.displayDice(diceRoll);
 	}
