@@ -25,6 +25,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		playGame();
 	}
 
+	/* Run game sequence */
 	private void playGame() {
 		/* You fill this in */
 		scorecard = new int[N_CATEGORIES][nPlayers];
@@ -39,6 +40,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		calculateWinner();
 	}
 	
+	/* Initialize first roll */
 	private void startFirstDiceRoll(int player) {
 		display.printMessage(playerNames[player - 1] + "'s turn! Click \"Roll Dice\" button to roll the dice.");
 		display.waitForPlayerToClickRoll(player);
@@ -48,6 +50,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.displayDice(diceRoll);
 	}
 	
+	/* Initialize 2nd and 3rd roll */
 	private void secondAndThirdRoll() {
 		for (int i = 0; i < 2; i++) {
 			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
@@ -61,6 +64,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}		
 	}
 	
+	/* Read category selection */
 	private void selectCategory(int player) {
 		
 	}
