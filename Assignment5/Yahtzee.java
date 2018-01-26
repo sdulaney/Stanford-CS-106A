@@ -7,6 +7,7 @@
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
+import java.util.*;
 
 public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
@@ -87,7 +88,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		selectedCategories[category - 1][player - 1] = 1;
 		int score;
 		int totalScore;
-		if (YahtzeeMagicStub.checkCategory(diceRoll, category)) {
+		if (checkCategory(diceRoll, category)) {
 			setCategoryScore(player, category);
 			score = scorecard[category - 1][player - 1];
 			display.updateScorecard(category,  player,  score);
@@ -182,6 +183,79 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	/* Returns true if the values of the dice stored in the array are valid for the category and false otherwise */
 	private boolean checkCategory(int[] dice, int category) {
 		
+		if (category == ONES || category == TWOS || category == THREES || category == FOURS || category == FIVES || category == SIXES || category == CHANCE) {
+			return true;
+		}
+		
+		ArrayList <Integer> one = new ArrayList<Integer>();
+		ArrayList <Integer> two = new ArrayList<Integer>();
+		ArrayList <Integer> three = new ArrayList<Integer>();
+		ArrayList <Integer> four = new ArrayList<Integer>();
+		ArrayList <Integer> five = new ArrayList<Integer>();
+		ArrayList <Integer> six = new ArrayList<Integer>();
+		
+		for (int i = 0; i < N_DICE; i++) {
+			if (diceRoll[i] == 1) {
+				one.add(1);
+			}
+			else if (diceRoll[i] == 2) {
+				two.add(1);
+			}
+			else if (diceRoll[i] == 3) {
+				three.add(1);
+			}
+			else if (diceRoll[i] == 4) {
+				four.add(1);
+			}
+			else if (diceRoll[i] == 5) {
+				five.add(1);
+			}
+			else if (diceRoll[i] == 6) {
+				six.add(1);
+			}
+		}
+		
+		if (category == THREE_OF_A_KIND) {
+			if (one.size() >= 3 || two.size() >= 3 || three.size() >= 3 || four.size() >= 3 || five.size() >= 3 || six.size() >= 3) {
+				return true;
+			}
+		}
+		else if (category == FOUR_OF_A_KIND) {
+			if (one.size() >= 4 || two.size() >= 4 || three.size() >= 4 || four.size() >= 4 || five.size() >= 4 || six.size() >= 4) {
+				return true;
+			}
+		}
+		else if (category == FULL_HOUSE) {
+			if (one.size() == 3 || two.size() == 3 || three.size() == 3 || four.size() == 3 || five.size() == 3 || six.size() == 3) {
+				if (one.size() == 2 || two.size() == 2 || three.size() == 2 || four.size() == 2 || five.size() == 2 || six.size() == 2) {
+					return true;
+				}
+			}
+		}
+		else if (category == SMALL_STRAIGHT) {
+			if (one.size() >= 1 && two.size() >= 1 && three.size() >= 1 && four.size() >= 1) {
+				return true;
+			} 
+			else if (two.size() >= 1 && three.size() >= 1 && four.size() >= 1 && five.size() >= 1) {
+				return true;
+			}
+			else if (three.size() >= 1 && four.size() >= 1 && five.size() >= 1 && six.size() >= 1) {
+				return true;
+			}
+		}
+		else if (category == LARGE_STRAIGHT) {
+			if (one.size() == 1 && two.size() == 1 && three.size() == 1 && four.size() == 1 && five.size() == 1) {
+				return true;
+			}
+			else if (two.size() == 1 && three.size() == 1 && four.size() == 1 && five.size() == 1 && six.size() == 1) {
+				return true;
+			}
+		}
+		else if (category == YAHTZEE) {
+			if (one.size() == 5 || two.size() == 5 || three.size() == 5 || four.size() == 5 || five.size() == 5 || six.size() == 5) {
+				return true;
+			}
+		}
 		return false;
 	}
 		
