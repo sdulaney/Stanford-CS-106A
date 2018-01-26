@@ -29,6 +29,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame() {
 		/* You fill this in */
 		scorecard = new int[N_CATEGORIES][nPlayers];
+		selectedCategories = new int[N_CATEGORIES][nPlayers];
 		for (int turns = 0; turns < N_SCORING_CATEGORIES; turns++) {
 			for(int player = 1; player <=  nPlayers; player++) {
 				startFirstDiceRoll(player);
@@ -69,7 +70,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.printMessage("Select a category for this roll.");
 		while (true) {
 			int category = display.waitForPlayerToSelectCategory();
-			if (selectedCategories[player][category] == 0) {
+			if (selectedCategories[category - 1][player - 1] == 0) {
 				calculateCategoryScore(player, category);
 				break;
 			}
@@ -79,22 +80,22 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	/* Calculates turn score based on whether dice roll is valid for given category */
 	private void calculateCategoryScore(int player, int category) {
-		selectedCategories[player][category] = 1;
+		selectedCategories[category - 1][player - 1] = 1;
 		int score;
 		int totalScore;
 		if (YahtzeeMagicStub.checkCategory(diceRoll, category)) {
 			setCategoryScore(player, category);
-			score = scorecard[player][category];
+			score = scorecard[category - 1][player - 1];
 			display.updateScorecard(category,  player,  score);
 			calculateScores(player);
-			totalScore = scorecard[player][TOTAL];
+			totalScore = scorecard[TOTAL - 1][player - 1];
 			display.updateScorecard(TOTAL,  player, totalScore);
 		}
 		else {
-			scorecard[player][category] = 0;
+			scorecard[category][player] = 0;
 			display.updateScorecard(category,  player, 0);
 			calculateScores(player);
-			totalScore = scorecard[player][TOTAL];
+			totalScore = scorecard[TOTAL - 1][player - 1];
 			display.updateScorecard(TOTAL, player, totalScore);
 		}
 	}
@@ -126,12 +127,24 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		else if (category == YAHTZEE) {
 			score = 50;
 		}
-		scorecard[player][category] = score;
+		scorecard[category - 1][player - 1] = score;
 	}
 	
 	/* Calculates a player's total scores */
 	private void calculateScores(int player) {
-		
+		int upperScore = 0;
+		int lowerScore = 0;
+		int totalScore = 0;
+		for (int i = ONES; i <= SIXES; i++) {
+			upperScore += scorecard[i - 1][player - 1];
+		}
+		for(int i = THREE_OF_A_KIND; i <= CHANCE; i++) {
+			lowerScore += scorecard[i - 1][player - 1];
+		}
+		totalScore = upperScore + lowerScore;
+		scorecard[UPPER_SCORE - 1][player - 1] = upperScore;
+		scorecard[LOWER_SCORE - 1][player - 1] = lowerScore;
+		scorecard[TOTAL - 1][player - 1] = totalScore;
 	}
 	
 	/* Updates score totals for all players on the scorecard */
