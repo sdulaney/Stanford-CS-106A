@@ -154,14 +154,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	/* Updates score totals for all players on the scorecard */
 	private void displayResults() {
 		for(int i = 0; i < nPlayers; i++) {
-			display.updateScorecard(UPPER_SCORE, i + 1, scorecard[UPPER_SCORE][i + 1]);
-			display.updateScorecard(LOWER_SCORE, i + 1, scorecard[LOWER_SCORE][i + 1]);
+			display.updateScorecard(UPPER_SCORE, i + 1, scorecard[UPPER_SCORE - 1][i]);
+			display.updateScorecard(LOWER_SCORE, i + 1, scorecard[LOWER_SCORE - 1][i]);
 			if(scorecard[UPPER_SCORE - 1][i] >= 63) {
 				scorecard[UPPER_BONUS - 1][i] = 35;
 			}
-			display.updateScorecard(UPPER_BONUS, i + 1, scorecard[UPPER_BONUS][i + 1]);
+			display.updateScorecard(UPPER_BONUS, i + 1, scorecard[UPPER_BONUS - 1][i]);
 			scorecard[TOTAL - 1][i] = scorecard[TOTAL - 1][i] + scorecard[UPPER_BONUS - 1][i];
-			display.updateScorecard(TOTAL, i + 1, scorecard[TOTAL][i + 1]);
+			display.updateScorecard(TOTAL, i + 1, scorecard[TOTAL - 1][i]);
 		}
 	}
 	
