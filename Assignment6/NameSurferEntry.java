@@ -19,7 +19,9 @@ public class NameSurferEntry implements NameSurferConstants {
  * decade.
  */
 	public NameSurferEntry(String line) {
-		// You fill this in //
+		name = line.substring(0, line.indexOf(" "));
+		nums = line.substring(line.indexOf(" ")).trim();
+		separateNums(nums);
 	}
 
 /* Method: getName() */
@@ -27,8 +29,7 @@ public class NameSurferEntry implements NameSurferConstants {
  * Returns the name associated with this entry.
  */
 	public String getName() {
-		// You need to turn this stub into a real implementation //
-		return null;
+		return name;
 	}
 
 /* Method: getRank(decade) */
@@ -40,8 +41,7 @@ public class NameSurferEntry implements NameSurferConstants {
  * not appear in a decade, the rank value is 0.
  */
 	public int getRank(int decade) {
-		// You need to turn this stub into a real implementation //
-		return 0;
+		return decadeArray[decade];
 	}
 
 /* Method: toString() */
@@ -50,8 +50,26 @@ public class NameSurferEntry implements NameSurferConstants {
  * NameSurferEntry.
  */
 	public String toString() {
-		// You need to turn this stub into a real implementation //
-		return "";
+		String result = "";
+		result += "\"" + name + " [";
+		for (int i = 0; i < NDECADES - 1; i++) {
+			result += decadeArray[i] + " ";
+		}
+		result += decadeArray[NDECADES - 1] + "]\"";
+		return result;
 	}
+	
+	private void separateNums(String nums) {
+		for (int i = 0; i < NDECADES - 1; i++) {
+			decadeArray[i] = Integer.parseInt(nums.substring(0, nums.indexOf(" ")));
+			nums = nums.substring(nums.indexOf(" ") + 1);
+		}
+		decadeArray[NDECADES - 1] = Integer.parseInt(nums);
+	}
+	
+	/* Private instance variables */
+	private String name = "";
+	private String nums = "";
+	private int[] decadeArray = new int[NDECADES];
 }
 
