@@ -19,14 +19,15 @@ public class NameSurferGraph extends GCanvas
 	*/
 	public NameSurferGraph() {
 		addComponentListener(this);
-		//	 You fill in the rest //
+		entryGraph = new ArrayList<NameSurferEntry>();
 	}
 	
 	/**
 	* Clears the list of name surfer entries stored inside this class.
 	*/
 	public void clear() {
-		//	 You fill this in //
+		entryGraph.clear();
+		update();
 	}
 	
 	/* Method: addEntry(entry) */
@@ -36,7 +37,7 @@ public class NameSurferGraph extends GCanvas
 	* simply stores the entry; the graph is drawn by calling update.
 	*/
 	public void addEntry(NameSurferEntry entry) {
-		// You fill this in //
+		entryGraph.add(entry);
 	}
 	
 	
@@ -49,9 +50,12 @@ public class NameSurferGraph extends GCanvas
 	* the size of the canvas changes.
 	*/
 	public void update() {
-		//	 You fill this in //
 		removeAll();
 		drawGraph();
+		
+		for (int i = 0; i < entryGraph.size(); i++) {
+			drawEntry(entryGraph.get(i), i);
+		}
 	}
 	
 	
@@ -90,4 +94,54 @@ public class NameSurferGraph extends GCanvas
 			add(dateLabel);
 		}
 	}
+	
+	private void drawEntry(NameSurferEntry entry, int color) {
+		for (int i = 0; i < NDECADES - 1; i++) {
+			GLine line = new GLine((getWidth() / NDECADES) * i, vertValue(entry.getRank(i)), (getWidth() / NDECADES) * (i + 1), vertValue(entry.getRank(i + 1)));
+			if (color % 4 == 0) {
+				line.setColor(Color.BLACK);
+			} else if (color % 4 == 1) {
+				line.setColor(Color.RED);
+			} else if (color % 4 == 2) {
+				line.setColor(Color.BLUE);
+			} else if (color % 4 == 3) {
+				line.setColor(Color.MAGENTA);
+			}
+			add(line);
+		}
+		for (int i = 0; i < NDECADES; i++) {
+			String labelEntry = "";
+			if (entry.getRank(i) != 0) {
+				labelEntry = entry.getName() + " " + entry.getRank(i);
+			} else {
+				labelEntry = entry.getName() + " *";
+			}
+			GLabel nameLabel = new GLabel(labelEntry, (getWidth() / NDECADES) * i, vertValue(entry.getRank(i)));
+			if (color % 4 == 0) {
+				nameLabel.setColor(Color.BLACK);
+			} else if (color % 4 == 1) {
+				nameLabel.setColor(Color.RED);
+			} else if (color % 4 == 2) {
+				nameLabel.setColor(Color.BLUE);
+			} else if (color % 4 == 3) {
+				nameLabel.setColor(Color.MAGENTA);
+			}
+			add(nameLabel);
+		}
+	}
+	
+	private double vertValue(int rank) {
+		double result = rank;
+		if (rank != 0) {
+			result /= MAX_RANK;
+			result *= (getHeight() - 2 * GRAPH_MARGIN_SIZE);
+			result += GRAPH_MARGIN_SIZE;
+		} else {
+			result = getHeight() - GRAPH_MARGIN_SIZE;
+		}
+		return result;
+	}
+	
+	/* Private instance variables */
+	private ArrayList<NameSurferEntry> entryGraph;
 }

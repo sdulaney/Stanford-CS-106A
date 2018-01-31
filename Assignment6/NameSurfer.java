@@ -47,15 +47,16 @@ public class NameSurfer extends Program implements NameSurferConstants {
 		// You fill this in //
 		Object source = e.getSource();
 		if (source == graphButton) {
-			println("Graph: " + nameField.getText());
 			NameSurferEntry entry = namesDB.findEntry(nameField.getText());
-			println("Graph: " + entry.toString());
+			graph.addEntry(entry);
+			graph.update();
 		} else if (source == nameField) {
-			println("Graph: " + nameField.getText());
 			NameSurferEntry entry = namesDB.findEntry(nameField.getText());
-			println("Graph: " + entry.toString());
+			graph.addEntry(entry);
+			graph.update();
 		} else if (source == clearButton) {
-			println("Clear");
+			graph.clear();
+			graph.update();
 		}
 	}
 	
