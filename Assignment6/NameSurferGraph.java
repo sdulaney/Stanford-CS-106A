@@ -50,6 +50,8 @@ public class NameSurferGraph extends GCanvas
 	*/
 	public void update() {
 		//	 You fill this in //
+		removeAll();
+		drawGraph();
 	}
 	
 	
@@ -60,4 +62,32 @@ public class NameSurferGraph extends GCanvas
 	public void componentMoved(ComponentEvent e) { }
 	public void componentResized(ComponentEvent e) { update(); }
 	public void componentShown(ComponentEvent e) { }
+	
+	private void drawGraph() {
+		drawHorizLines();
+		drawVertLines();
+		drawDateLabels();
+	}
+	
+	private void drawHorizLines() {
+		GLine topLine = new GLine(0, GRAPH_MARGIN_SIZE, getWidth(), GRAPH_MARGIN_SIZE);
+		add(topLine);
+		GLine botLine = new GLine(0, getHeight() - GRAPH_MARGIN_SIZE, getWidth(), getHeight() - GRAPH_MARGIN_SIZE);
+		add(botLine);
+	}
+	
+	private void drawVertLines() {
+		for (int i = 0; i < NDECADES; i++) {
+			GLine vertLine = new GLine((i + 1) * (getWidth() / NDECADES), 0, (i + 1) * (getWidth() / NDECADES), getHeight());
+			add(vertLine);
+		}
+	}
+	
+	private void drawDateLabels() {
+		for (int i = 0; i < NDECADES; i++) {
+			String dateString = Integer.toString(i * 10 + START_DECADE);
+			GLabel dateLabel = new GLabel(dateString, i * (getWidth() / NDECADES), getHeight());
+			add(dateLabel);
+		}
+	}
 }
