@@ -20,6 +20,7 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 */
 	public FacePamphletProfile(String name) {
 		profileName = name;
+		profileStatus = "";
 	}
 
 	/** This method returns the name associated with the profile. */ 
