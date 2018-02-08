@@ -21,6 +21,8 @@ public class FacePamphlet extends ConsoleProgram
 	 */
 	public void init() {
 		
+		faceDB = new FacePamphletDatabase();
+		
 		nameLabel = new JLabel("Name");
 		add(nameLabel, NORTH);
 		
@@ -72,12 +74,29 @@ public class FacePamphlet extends ConsoleProgram
      */
     public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source == addButton) {
-			println("Add: " + nameField.getText());
+		if (source == addButton) {	
+			if (faceDB.containsProfile(nameField.getText())) {
+				FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
+				faceDB.addProfile(profile);
+				println("Add: profile for " + nameField.getText() + " already exists: " + faceDB.getProfile(nameField.getText()).toString());
+			} else {
+				FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
+				faceDB.addProfile(profile);
+				println("Add: new profile: " + faceDB.getProfile(nameField.getText()).toString());
+			}
 		} else if (source == deleteButton) {
-			println("Delete: " + nameField.getText());
+			if (faceDB.containsProfile(nameField.getText())) {
+				faceDB.deleteProfile(nameField.getText());
+				println("Delete: profile of " + nameField.getText() + " deleted");
+			} else {
+				println("Delete: profile with name " + nameField.getText() + " does not exist");
+			}
 		} else if (source == lookupButton) {
-			println("Lookup: " + nameField.getText());
+			if (faceDB.containsProfile(nameField.getText())) {
+				println("Lookup: " + faceDB.getProfile(nameField.getText()).toString());
+			} else {
+				println("Lookup: profile with name " + nameField.getText() + " does not exist");
+			}
 		} else if (source == changeStatusButton || source == changeStatusField) {
 			println("Change Status: " + changeStatusField.getText());
 		} else if (source == changePictureButton || source == changePictureField) {
@@ -99,5 +118,6 @@ public class FacePamphlet extends ConsoleProgram
     private JButton changePictureButton;
     private JTextField addFriendField;
     private JButton addFriendButton;
+    private FacePamphletDatabase faceDB;
 
 }
